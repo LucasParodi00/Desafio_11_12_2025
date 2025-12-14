@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// 1. Solo importamos TU componente Provider (la cáscara)
+// NO importes CartContext ni useCart aquí, no los necesitas.
+import { CartProvider } from "@/feature/cart/provider/CartProvider";
+import { Navbar } from "@/feature/navbar/components/Navbar";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +32,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <CartProvider>
+          <Navbar />
+
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
